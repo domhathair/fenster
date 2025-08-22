@@ -72,8 +72,10 @@ typedef bool boolean;
 
 typedef enum 
 {
+#if __STDC_VERSION__ < 202000L
     false	= 0,
     true	= 1,
+#endif
 	undef	= 0xFFFFFFFF
 } boolean;
 

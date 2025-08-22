@@ -7,7 +7,7 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		LDFLAGS = -framework Cocoa
 	else
-		LDFLAGS = -lX11
+		LDFLAGS = -lSDL3 -DUSE_SDL -I/usr/include/SDL3
 	endif
 endif
 

@@ -1,4 +1,4 @@
-CFLAGS+=-Wall -DNORMALUNIX -DLINUX -DSNDSERV -D_DEFAULT_SOURCE
+CFLAGS+=-Wall -DNORMALUNIX -DLINUX -DSNDSERV -D_DEFAULT_SOURCE -std=c23
 LIBS+=-lm -lc
 ifeq ($(OS),Windows_NT)
 	LIBS+= -lgdi32
@@ -7,7 +7,8 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		LIBS+=-framework Cocoa
 	else
-		LIBS+=-lX11
+		CFLAGS+=-DUSE_SDL -I/usr/include/SDL3
+		LIBS+=-lSDL3
 	endif
 endif
 

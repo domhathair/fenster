@@ -30,12 +30,25 @@ typedef struct
 
 extern wad_file_class_t stdc_wad_file;
 
+#if __STDC_VERSION__ >= 202000L && defined(__linux__)
+static unsigned char doom_wad[] = {
+#embed "doom.wad"
+};
+
+#define DOOM_WAD_SIZE (sizeof(doom_wad) / sizeof(unsigned char))
+#endif
+
 static wad_file_t *W_StdC_OpenFile(char *path)
 {
     stdc_wad_file_t *result;
     FILE *fstream;
 
+
+#if __STDC_VERSION__ >= 202000L && defined(__linux__)
+    fstream = fmemopen(doom_wad, DOOM_WAD_SIZE, "rb");
+#else
     fstream = fopen(path, "rb");
+#endif
 
     if (fstream == NULL)
     {
