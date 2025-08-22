@@ -1,4 +1,4 @@
-CFLAGS+=-Wall -DNORMALUNIX -DLINUX -DSNDSERV -D_DEFAULT_SOURCE -std=c23
+CFLAGS+=-Wall -DNORMALUNIX -DSNDSERV -D_DEFAULT_SOURCE -std=c23
 LIBS+=-lm -lc
 ifeq ($(OS),Windows_NT)
 	LIBS+= -lgdi32
@@ -7,7 +7,13 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		LIBS+=-framework Cocoa
 	else
-		CFLAGS+=-DUSE_SDL -I/usr/include/SDL3
+		ifeq ($(UNAME_S),FreeBSD)
+			CC=clang20 # To support the #embed directive
+			CFLAGS+=-I/usr/local/include/SDL3 -I/usr/local/include -L/usr/local/lib
+		else
+			CFLAGS+=-I/usr/include/SDL3 -I/usr/include
+		endif
+		CFLAGS+=-DUSE_SDL
 		LIBS+=-lSDL3
 	endif
 endif

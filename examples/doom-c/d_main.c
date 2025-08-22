@@ -1361,7 +1361,7 @@ void D_DoomMain (void)
     I_AtExit(M_SaveDefaults, false);
 
     // Find main IWAD file and load it.
-#if __STDC_VERSION__ >= 202000L && defined(__linux__)
+#if __STDC_VERSION__ >= 202000L && defined(__unix__)
     // We will be using "the brand new" #embed directive for C23 to make it statically assigned with "doom.wad"
     // Check its usage in "w_file_stdc.c"
     iwadfile = "doom.wad";
